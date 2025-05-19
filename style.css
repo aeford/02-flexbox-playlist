@@ -28,6 +28,51 @@ header h1 {
   width: 220px; 
   background: #fff;
   border: 1px solid #ddd;
+  flex: 0 0 220px;
+}
+
+.album .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(30, 30, 30, 0.85);
+  color: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+  font-size: 15px;
+  z-index: 2;
+  /* Smooth fade-in */
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+.album:hover .overlay,
+.album:focus-within .overlay {
+  display: block;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Flexbox container for albums */
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  overflow-x: auto;
+  padding-bottom: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: #ccc #f4f4f4;
+  scroll-behavior: smooth;
+  max-width: calc(220px * 4 + 24px * 3);
+  margin-left: auto;
+  margin-right: auto;
+  /* Hide vertical overflow just in case */
+  overflow-y: hidden;
 }
 
 .album img {
@@ -52,4 +97,20 @@ header h1 {
 
 .overlay {
  display: none;
+}
+
+/* Responsive: Stack albums vertically and make them wider on small screens */
+@media (max-width: 700px) {
+  .container {
+    flex-direction: column;
+    max-width: 100%;
+    overflow-x: visible;
+    gap: 20px;
+    align-items: center;
+  }
+  .album {
+    width: 90vw;
+    max-width: 400px;
+    flex: 0 0 auto;
+  }
 }
